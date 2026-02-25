@@ -4,3 +4,5 @@
 
 RsMetaCheck-Catalog is a collection of issues designed to validate and check metadata for RS projects. It helps ensure consistency, correctness, and compliance with the best practices in RS metadata.
 
+The page is at: https://anas-elhounsri.github.io/RsMetaCheck-Catalog/ 
+
