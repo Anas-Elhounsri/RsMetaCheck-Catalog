@@ -116,9 +116,32 @@
               }
             }
 
-            $('#myTable').DataTable({
+            const table = $('#myTable').DataTable({
               pageLength: 25,
-              order: [[0, 'asc']]
+              order: [[0, 'asc']],
+              initComplete: function(settings, json) {
+                if (window.location.hash) {
+                  const targetId = window.location.hash;
+                  const api = this.api();
+                  
+                  const rowIndex = api.row(targetId).index();
+                  
+                  if (rowIndex !== undefined) {
+                    const pageInfo = api.page.info();
+                    const targetPage = Math.floor(rowIndex / pageInfo.length);
+                    api.page(targetPage).draw(false);
+                    
+                    setTimeout(() => {
+                      $('html, body').animate({
+                        scrollTop: $(targetId).offset().top - 20
+                      }, 500);
+                      
+                      $(targetId).css('background-color', '#ffff99');
+                      setTimeout(() => $(targetId).css('background-color', ''), 2000);
+                    }, 100);
+                  }
+                }
+              }
             });
           })
           .catch(error => console.error('Error loading table data:', error));
